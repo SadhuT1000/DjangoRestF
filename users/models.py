@@ -20,6 +20,13 @@ class User(AbstractUser):
     avatar = models.ImageField(
         upload_to="photo/avatars/", blank=True, null=True, verbose_name="Аватар"
     )
+    tg_nick = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        verbose_name="Телега ник",
+        help_text="Укажи телегу",
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -30,7 +37,6 @@ class User(AbstractUser):
 
         def __str__(self):
             return self.email
-
 
 
 class Payments(models.Model):
@@ -50,7 +56,7 @@ class Payments(models.Model):
         blank=True,
         null=True,
     )
-    data = models.DateField(verbose_name='Дата платежа')
+    data = models.DateField(verbose_name="Дата платежа")
     paid_course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
@@ -66,12 +72,13 @@ class Payments(models.Model):
         null=True,
     )
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Сумма")
-    payment_method = models.CharField(max_length=40, choices=STATUS_CHOICES, default=TRANSFER, verbose_name='Метод оплаты')
-
+    payment_method = models.CharField(
+        max_length=40,
+        choices=STATUS_CHOICES,
+        default=TRANSFER,
+        verbose_name="Метод оплаты",
+    )
 
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
-
-
-

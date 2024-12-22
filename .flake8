@@ -1,0 +1,6 @@
+[flake8]
+ignore = E501
+
+per-file-ignores =
+    specific_file.py: E722,
+    another_file.py: W503

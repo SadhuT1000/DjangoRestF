@@ -1,12 +1,14 @@
+from django.conf.urls.static import static
 from django.urls import path
 from rest_framework.routers import SimpleRouter
-from django.conf.urls.static import static
+
 from config import settings
 from lerning.apps import LerningConfig
 from lerning.views import (CourseViewSet, LessonCreateApiView,
                            LessonDestroyAPIView, LessonListAPIView,
-                           LessonRetrieveAPIView, LessonUpdateApiView)
-from users.views import PaymentsViewSet, UserViewSet
+                           LessonRetrieveAPIView, LessonUpdateApiView,
+                           SubscriptionApiView, UnsubscribeApiView)
+
 
 app_name = LerningConfig.name
 
@@ -23,6 +25,12 @@ urlpatterns = [
     ),
     path(
         "lesson/<int:pk>/delete/", LessonDestroyAPIView.as_view(), name="lesson_delete"
+    ),
+    path(
+        "courses/<int:pk>/subscribe/", SubscriptionApiView.as_view(), name="subscribe"
+    ),
+    path(
+        "courses/<int:pk>/unsubscribe", UnsubscribeApiView.as_view(), name="unsubscribe"
     ),
 ]
 

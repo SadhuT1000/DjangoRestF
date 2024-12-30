@@ -1,6 +1,8 @@
 # flake8: noqa
 
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView, RetrieveAPIView,
@@ -16,6 +18,22 @@ from lerning.serializers import (CourseSerializer, LessonSerializer,)
 from users.permissions import IsModer, IsOwner
 
 
+
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="Просмотр списка курсов"
+))
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Создание курса"
+))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(
+    operation_description="Просмотр курса"
+))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(
+    operation_description="Удаление курса"
+))
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    operation_description="Обновление курса"
+))
 class CourseViewSet(ModelViewSet):
 
     queryset = Course.objects.all()

@@ -1,0 +1,23 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$TUtUsn0iopdQHBAnRfzPlJ$7rA3o91u1YHMMj1JyK7tr7mN+hig48kZwGQGBCubEn0=",
+        "last_login": null,
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-12-18T06:27:05.900Z",
+        "email": "admin@example.com",
+        "phone": null,
+        "city": null,
+        "avatar": "",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
+

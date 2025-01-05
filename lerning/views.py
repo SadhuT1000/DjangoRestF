@@ -16,7 +16,7 @@ from lerning.models import Course, Lesson, Subscription
 from lerning.pagination import CustomPagination
 from lerning.serializers import (CourseSerializer, LessonSerializer,)
 from users.permissions import IsModer, IsOwner
-
+from lerning.tasks import send_information_about_update
 
 
 @method_decorator(name='list', decorator=swagger_auto_schema(
@@ -52,6 +52,15 @@ class CourseViewSet(ModelViewSet):
         ]:
             self.permission_classes = (IsOwner | ~IsModer,)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+
+        for subscription in Subscription.objects.filter(course=course.pk):
+            email = subscription.user.email
+            message = f'Данные по курсу "{subscription.course.title}" были обновлены'
+            send_information_about_update.delay(email, message)
+        course.save()
 
 
 class LessonCreateApiView(CreateAPIView):
